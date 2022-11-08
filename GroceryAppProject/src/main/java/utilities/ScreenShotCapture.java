@@ -21,7 +21,7 @@ public class ScreenShotCapture {
 		File screenShot = scrShot.getScreenshotAs(OutputType.FILE);
 
 		// java code to create a folder
-		File f1 = new File(System.getProperty("user.dir" + "\\Output Screenshots")); // generating folder using java
+		File f1 = new File(System.getProperty("user.dir" )+ "\\Output Screenshots"); // generating folder using java
 		if (!f1.exists()) {
 			f1.mkdirs();
 		}
@@ -29,10 +29,8 @@ public class ScreenShotCapture {
 		// java code for taking system date and time
 		String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
 
-		File finalDestination = new File(
-				System.getProperty("user.dir") + "\\Output Screenshots" + name + timeStamp + ".png");
+		File finalDestination = new File(System.getProperty("user.dir") + "\\Output Screenshots" + name + timeStamp + ".png");
 		FileHandler.copy(screenShot, finalDestination);
-
 	}
 
 }

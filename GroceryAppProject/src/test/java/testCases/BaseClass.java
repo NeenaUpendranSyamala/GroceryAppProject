@@ -30,35 +30,39 @@ public class BaseClass {
 	}
 
 	@BeforeMethod(alwaysRun = true)
-	// @Parameters("browser")
-	public void beforeMethod() throws IOException {
+	@Parameters("browser")
+	public void beforeMethod(String browservalue) throws IOException {
 		testBasic();
-		// if (browservalue.equals("chrome")) {
-		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") // system.getproperty
-				+ "\\src\\test\\resources\\DriverFiles\\chromedriver.exe");
-		// takes the path till project location via java and then we append the rest of
-		// the path
-		driver = new ChromeDriver();
-		// }
-		/*
-		 * else if (browservalue.equals("edge")) {
-		 * System.setProperty("webdriver.edge.driver",System.getProperty("user.dir") +
-		 * "\\src\\test\\resources\\DriverFiles\\edgedriver\\msedgedriver.exe"); driver
-		 * = new EdgeDriver(); }
-		 */
+		if (browservalue.equals("chrome")) {
+			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") // system.getproperty
+					+ "\\src\\test\\resources\\DriverFiles\\chromedriver.exe");
+			// takes the path till project location via java and then we append the rest of the path
+			
+			driver = new ChromeDriver();
+		} 
+		else if (browservalue.equals("edge")) {
+			System.setProperty("webdriver.edge.driver", System.getProperty("user.dir")
+					+ "\\src\\test\\resources\\DriverFiles\\edgedriver_win64\\msedgedriver.exe");
+			driver = new EdgeDriver();
+		}
+
 		driver.get(prop.getProperty("BaseURL"));
 		// driver.get("https://groceryapp.uniqassosiates.com/admin/login");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
 	}
 
+	/*
+	 * @AfterMethod public void afterMethod(ITestResult itestResult) throws
+	 * IOException { // if the test fails, screenshot is captured if
+	 * (itestResult.getStatus() == ITestResult.FAILURE) { sc = new
+	 * ScreenShotCapture(); sc.captureScreenShotFailures(driver,
+	 * itestResult.getName()); }
+	 */
+
 	@AfterMethod
-	public void afterMethod(ITestResult itestResult) throws IOException {
+	public void afterMethod() {
 		// if the test fails, screenshot is captured
-		if (itestResult.getStatus() == ITestResult.FAILURE) {
-			sc = new ScreenShotCapture();
-			sc.captureScreenShotFailures(driver, itestResult.getName());
-		}
 
 		driver.close();
 	}

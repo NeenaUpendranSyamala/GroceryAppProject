@@ -1,6 +1,7 @@
 
 package elementRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -50,6 +51,11 @@ public class ExpenseCategory {
 
 	@FindBy(xpath = "//input[@id='un']") // with page factory
 	WebElement searchTitle;
+	
+	
+	@FindBy(xpath = "//input[@id='name']") // with page factory
+	WebElement editField;
+	
 
 	@FindBy(xpath = "//button[@name='Create']") // with page factory
 	WebElement createNewExpenseCategoryButton;
@@ -80,7 +86,7 @@ public class ExpenseCategory {
 	// List<WebElement> expenseCategoryItemsTable = new ArrayList <WebElement>();
 	
 	@FindBy(xpath = "//table[@class='table table-bordered table-hover table-sm']//td[1]") // with page factory
-	List<WebElement> itemList;
+	List<WebElement> itemList = new ArrayList <WebElement>();
 
 	String dynamicpath = "//table[@class='table table-bordered table-hover table-sm']//tbody//tr[\" + i + \"]//td[2]//a[@class='btn btn-sm btn btn-danger btncss']";
 
@@ -126,7 +132,7 @@ public class ExpenseCategory {
 	}
 
 	public void acceptDeleteAlert() {
-		gu.acceptAlert();
+		gu.acceptAlert(driver);
 	}
 
 	public String successAlert() {
@@ -153,6 +159,15 @@ public class ExpenseCategory {
 		editIcon.click();
 	}
 	
+
+	public void clearSearchField() {
+		gu.clearField(editField);
+	}
+	
+	public void inputItemToUpdate(String newItem) {
+		gu.inputText(editField, newItem);
+				
+	}			
 	public void clickUpdateItem() {
 		updateItemBtn.click();
 	}
@@ -166,6 +181,7 @@ public class ExpenseCategory {
 	public void deleteItem(String itemName) {
 		String dynamicItemXpath = gu.selectDynamicItem(itemList, itemName, dynamicpath);
 		WebElement cellElement = driver.findElement(By.xpath(dynamicItemXpath));
+		
 		cellElement.click();
 		driver.switchTo().alert().accept();
 	}

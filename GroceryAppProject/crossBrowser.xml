@@ -1,14 +1,28 @@
-<suite name="GroceryAppProject">
+<suite name="GroceryAppProject" parallel="tests" thread-count="2">
+<listeners>
+		<listener class-name="utilities.ExtentReport" />
+	</listeners>
 	<test name="Chrometest">
+	
 	<parameter name="browser" value='chrome'></parameter>
+	<groups>
+			<run>
+				<include name="Critical" />
+			</run>
+		</groups>
 		<classes>
-			<class name="testCases.LoginTestCases"></class>
+			<class name="testCases.HomePageTestCases"></class>
 		</classes>
 	</test>
 	<test name="EdgeTest">
 	<parameter name="browser" value='edge'></parameter>
+	<groups>
+			<run>
+				<include name="Critical" />
+			</run>
+		</groups>
 		<classes>
-			<class name="testCases.LoginTestCases"></class>
+			<class name="testCases.HomePageTestCases"></class>
 		</classes>
 	</test>
 </suite>  

@@ -6,6 +6,15 @@ public class Constants {
 													// to hardcode
 	public static final String password = "admin";
 	
+	public static final String homePageURL = "https://groceryapp.uniqassosiates.com/admin";
+	
 	public static final String expectedPageHeader = "List Expense";
-
+	
+	public static final String createMerchantdPageHeader = "Create Merchant";
+	
+	public static final String expectedLogoutMsg = "Sign In";
+	
+	public static final String expectedLoginBtnText = "Sign In";
+	
+	public static final String expectedhomePageTitle = "Dashboard | 7rmart supermarket";
 }

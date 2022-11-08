@@ -1,6 +1,6 @@
 package testCases;
 
-
+import java.awt.AWTException;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -10,13 +10,15 @@ import elementRepository.HomePage;
 import elementRepository.LoginPage;
 import elementRepository.ManageExpenses;
 
+
+
 public class ManageExpensesTestCases extends BaseClass {
 
 	LoginPage lp;
 	HomePage hp;
 	ManageExpenses me;
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void verifyManageExpensePageLoad() {
 		lp = new LoginPage(driver);
 		me = new ManageExpenses(driver);
@@ -28,7 +30,7 @@ public class ManageExpensesTestCases extends BaseClass {
 		Assert.assertEquals(actualpageheader, expectedpageHeader, " Page is not loaded");
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void verifyNewSearchResetButtonFontSize() {
 		lp = new LoginPage(driver);
 		me = new ManageExpenses(driver);
@@ -40,7 +42,7 @@ public class ManageExpensesTestCases extends BaseClass {
 		Assert.assertEquals(me.getResetBtnFontsize(), "16px", " font size not as expected");
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void verifyNewSearchResetButtonFontColor() {
 		lp = new LoginPage(driver);
 		me = new ManageExpenses(driver);
@@ -54,7 +56,7 @@ public class ManageExpensesTestCases extends BaseClass {
 
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void verifyAddExpenseFields() {
 		lp = new LoginPage(driver);
 		me = new ManageExpenses(driver);
@@ -69,14 +71,20 @@ public class ManageExpensesTestCases extends BaseClass {
 	}
 
 	@Test(enabled = false)
-	public void verifyAddNewExpense() {
+	public void verifyAddNewExpenseRecord() throws AWTException, InterruptedException {
 		lp = new LoginPage(driver);
 		me = new ManageExpenses(driver);
 		lp.performLogin(Constants.userName, Constants.password);
 		me.loadManageExpense();
 		me.loadListExpenses();
-		String actual = me.manageExpensesPageLoad();
-		String expected = "List Expense";
-		Assert.assertEquals(actual, expected, " Page is not loaded");
+		me.loadAddExpensePage();
+		me.AddDetails("User(DB)", "Debit Bank", "500");
+		me.FileUpload();
+		me.createExpenseRecord();
+		String actual = me.successAlert();
+		String expected = "×\n"
+				+ "Alert!\n"
+				+ "Expense Record Created Successfully";
+		Assert.assertEquals(actual, expected, "::Expense record not created");
 	}
 }

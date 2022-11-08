@@ -17,7 +17,7 @@ public class ExpenseCategoryTestCases extends BaseClass {
 	HomePage hp;
 	ExpenseCategory ec;
 
-	@Test(enabled = true, priority = 1)
+	@Test(enabled = false, priority = 1)
 	public void verifyExpenseCategoryPageIsLoaded() throws IOException {
 		lp = new LoginPage(driver);
 		ec = new ExpenseCategory(driver);
@@ -30,7 +30,7 @@ public class ExpenseCategoryTestCases extends BaseClass {
 
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void addNewExpenseCategory() throws IOException {
 		lp = new LoginPage(driver);
 		ec = new ExpenseCategory(driver);
@@ -44,7 +44,7 @@ public class ExpenseCategoryTestCases extends BaseClass {
 		Assert.assertEquals("Grocery998", addedItemText);
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void searchExpenseCategory() throws IOException {
 		lp = new LoginPage(driver);
 		ec = new ExpenseCategory(driver);
@@ -58,14 +58,14 @@ public class ExpenseCategoryTestCases extends BaseClass {
 		Assert.assertEquals(actual, "orange", "::Search not working");
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void deleteExpenseCategory() throws IOException {
 		lp = new LoginPage(driver);
 		ec = new ExpenseCategory(driver);
 		lp.performLogin(Constants.userName, Constants.password);
 		ec.clickmanageExpense();
 		ec.clickExpenseCategory();
-		ec.deleteItem("Chocolates");
+		ec.deleteItem("Biscuits");
 		String actual = ec.successAlert();
 		String expected = "×\n"
 				+ "Alert!\n"
@@ -73,24 +73,26 @@ public class ExpenseCategoryTestCases extends BaseClass {
 		Assert.assertEquals(actual, expected, "::Item not deleted");
 	}
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void EditExpenseCategory() {
 		lp = new LoginPage(driver);
 		ec = new ExpenseCategory(driver);
 		lp.performLogin(Constants.userName, Constants.password);
 		ec.clickmanageExpense();
 		ec.clickExpenseCategory();
+		ec.clickEditIcon();
+		ec.clearSearchField();
+		ec.inputItemToUpdate("Apple123");
 		ec.clickUpdateItem();
-		
 		String actual = ec.updateSuccessAlert();
-		String expected = "×\n"
+		String expected ="×\n"
 				+ "Alert!\n"
-				+ " Category Updated Successfully";
+				+ "Category Updated Successfully";
 		Assert.assertEquals(actual, expected, "::Item not updated");	
 	
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void verifyNewSearchResetButtonColors() throws IOException {
 		lp = new LoginPage(driver);
 		ec = new ExpenseCategory(driver);
