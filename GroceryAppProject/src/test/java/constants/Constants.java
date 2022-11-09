@@ -17,4 +17,8 @@ public class Constants {
 	public static final String expectedLoginBtnText = "Sign In";
 	
 	public static final String expectedhomePageTitle = "Dashboard | 7rmart supermarket";
+	
+	public static final String ManagePdtPageHeader = "List Products";
+	
+	public static final String ManagePdtPageTitle	 = "List Products | 7rmart supermarket";
 }
